@@ -14,7 +14,7 @@ pipeline {
 
         stage('Build with Maven') {
             steps {
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
         }
 
@@ -26,13 +26,13 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t petclinic-app .'
+                bat 'docker build -t petclinic-app .'
             }
         }
 
         stage('Run Docker Container') {
             steps {
-                sh '''
+                bat '''
                     docker stop petclinic-container || true
                     docker rm petclinic-container || true
                     docker run -d -p 8085:8080 --name petclinic-container petclinic-app
